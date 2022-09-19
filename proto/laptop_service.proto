@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package techschool.pcbook;
+
+option go_package = ".;pb";
+
+
+import "laptop_message.proto";
+import "options/gorm.proto";
+
+
+message CreateLaptopRequest { Laptop laptop = 1; }
+
+message CreateLaptopResponse { string id = 1; }
+
+message FindLaptopRequest { string id = 1 ; }
+
+message FindLaptopResponse { Laptop laptop = 1; }
+
+service LaptopService {
+	option (gorm.server).autogen = true;
+	
+	rpc CreateLaptop(CreateLaptopRequest) returns (CreateLaptopResponse) {}
+
+	rpc FindLaptop(FindLaptopRequest) returns (FindLaptopResponse) {}
+}
+

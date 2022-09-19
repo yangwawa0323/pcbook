@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package techschool.pcbook;
+
+option go_package = ".;pb";
+
+import "options/gorm.proto";
+
+import "memory_message.proto";
+
+message Cpu {
+  option (gorm.opts) = {
+    ormable: true
+  };
+  uint32 id = 1 [(gorm.field).tag = { auto_increment: true primary_key: true}]; 
+  string brand = 2;
+  string name = 3;
+  uint32 number_cores = 4;
+  uint32 number_threads = 5;
+  double min_ghz = 6;
+  double max_ghz = 7;
+}
+
+message Gpu {
+  option (gorm.opts) = {
+    ormable: true
+  };
+  string brand = 1;
+  string name = 2;
+  double min_ghz = 3;
+  double max_ghz = 4;
+  Memory memory = 5;
+}
