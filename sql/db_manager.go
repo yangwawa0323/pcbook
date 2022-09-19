@@ -6,7 +6,7 @@ import (
 	"os"
 
 	"github.com/yangwawa0323/pcbook/utils"
-	"gorm.io/driver/mysql"
+	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
 )
@@ -31,7 +31,8 @@ func InitDB() (*gorm.DB, error) {
 		},
 	)
 
-	db, err := gorm.Open(mysql.Open(GetMySqlDSN()), &gorm.Config{Logger: infoLogger})
+	// db, err := gorm.Open(mysql.Open(GetMySqlDSN()), &gorm.Config{Logger: infoLogger})
+	db, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{Logger: infoLogger})
 	if err != nil {
 		log.Fatal(out.Panic("cannot connect to MySQL database: %v", err))
 		return nil, err

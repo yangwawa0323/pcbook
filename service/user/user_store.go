@@ -61,6 +61,6 @@ func (store *UserDBStore) Save(user *pb.UserORM) error {
 
 func (store *UserDBStore) Find(id string) (*pb.UserORM, error) {
 	var user *pb.UserORM
-	err := store.DB.Model(&pb.UserORM{}).First(&user, "id = ? ", id).Error
+	err := store.DB.Joins("Email").First(&user, "id = ? ", id).Error
 	return user, err
 }

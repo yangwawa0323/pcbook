@@ -13,6 +13,7 @@ require (
 	github.com/stretchr/testify v1.8.0
 	google.golang.org/grpc v1.49.0
 	google.golang.org/protobuf v1.28.1
+	gorm.io/driver/sqlite v1.3.6
 // google.golang.org/protobuf v1.28.1
 
 )
@@ -38,6 +39,5 @@ require (
 	golang.org/x/text v0.3.7 // indirect
 	google.golang.org/genproto v0.0.0-20220909194730-69f6226f97e5
 	gopkg.in/yaml.v3 v3.0.1 // indirect
-	gorm.io/driver/mysql v1.3.6
 	gorm.io/gorm v1.23.9 // direct
 )

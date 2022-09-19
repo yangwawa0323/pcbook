@@ -2,9 +2,12 @@ package main
 
 import (
 	"context"
+	"encoding/json"
 	"flag"
+	"fmt"
 	"log"
 	"math"
+	"os"
 	"time"
 
 	"github.com/yangwawa0323/pcbook/pb"
@@ -102,7 +105,14 @@ func main() {
 		User: sample.NewUser(),
 	}
 
-	log.Print(out.Debug("req : %#v", req.User))
+	log.Print(out.Debug("req user : %#v , and user's email: ", req.User, req.User.Emails))
+
+	jsonData, err := json.Marshal(req.User)
+	if err != nil {
+		log.Fatal("Cannot marshal the user data")
+	}
+
+	fmt.Fprint(os.Stdout, string(jsonData))
 
 	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
 
