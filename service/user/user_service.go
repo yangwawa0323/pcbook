@@ -6,12 +6,12 @@ import (
 	"log"
 	"os"
 
-	"github.com/yangwawa0323/pcbook/pb"
+	pb_user "github.com/yangwawa0323/pcbook/pb/user/v1"
 )
 
 type UserServer struct {
 	Store UserStore
-	pb.UnimplementedUserServiceServer
+	pb_user.UnimplementedUserServiceServer
 }
 
 func NewUserServer(store UserStore) *UserServer {
@@ -19,7 +19,7 @@ func NewUserServer(store UserStore) *UserServer {
 }
 
 func (us *UserServer) CreateUser(ctx context.Context,
-	req *pb.CreateUserRequest) (*pb.CreateUserResponse, error) {
+	req *pb_user.CreateUserRequest) (*pb_user.CreateUserResponse, error) {
 	user, err := req.GetUser().ToORM(ctx)
 	log.Print(out.Debug("Get user request: %#v", user))
 	if err != nil {
@@ -31,13 +31,13 @@ func (us *UserServer) CreateUser(ctx context.Context,
 
 	fmt.Fprint(os.Stdout, out.Debug("user is created : %#v\n", user))
 
-	return &pb.CreateUserResponse{
+	return &pb_user.CreateUserResponse{
 		Id: user.Id,
 	}, nil
 }
 
 func (us *UserServer) FindUser(ctx context.Context,
-	req *pb.FindUserRequest) (*pb.FindUserResponse, error) {
+	req *pb_user.FindUserRequest) (*pb_user.FindUserResponse, error) {
 
 	userID := req.GetId()
 	userORM, err := us.Store.Find(userID)
@@ -46,7 +46,7 @@ func (us *UserServer) FindUser(ctx context.Context,
 	}
 	user, _ := userORM.ToPB(ctx)
 
-	return &pb.FindUserResponse{
+	return &pb_user.FindUserResponse{
 		User: &user,
 	}, nil
 }

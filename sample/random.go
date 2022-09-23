@@ -5,7 +5,7 @@ import (
 	"time"
 
 	"github.com/google/uuid"
-	"github.com/yangwawa0323/pcbook/pb"
+	pb_laptop "github.com/yangwawa0323/pcbook/pb/laptop/v1"
 )
 
 func init() {
@@ -40,33 +40,33 @@ func randomID() string {
 	return uuid.New().String()
 }
 
-func randomKeyboardLayout() pb.Keyboard_Layout {
+func randomKeyboardLayout() pb_laptop.Keyboard_Layout {
 	switch rand.Intn(3) {
 	case 1:
-		return pb.Keyboard_QWERTY
+		return pb_laptop.Keyboard_QWERTY
 	case 2:
-		return pb.Keyboard_QWERTZ
+		return pb_laptop.Keyboard_QWERTZ
 	default:
-		return pb.Keyboard_AZERTY
+		return pb_laptop.Keyboard_AZERTY
 	}
 }
 
-func randomScreenResolution() *pb.Screen_Resolution {
+func randomScreenResolution() *pb_laptop.Screen_Resolution {
 	height := randomInt(1080, 4320)
 	width := height * 16 / 9
 
-	resolution := &pb.Screen_Resolution{
+	resolution := &pb_laptop.Screen_Resolution{
 		Width:  uint32(width),
 		Height: uint32(height),
 	}
 	return resolution
 }
 
-func randomScreenPanel() pb.Screen_Panel {
+func randomScreenPanel() pb_laptop.Screen_Panel {
 	if rand.Intn(2) == 1 {
-		return pb.Screen_IPS
+		return pb_laptop.Screen_IPS
 	}
-	return pb.Screen_OLED
+	return pb_laptop.Screen_OLED
 }
 
 func randomCpuBrand() string {

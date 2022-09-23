@@ -6,7 +6,7 @@ import (
 	"log"
 
 	"github.com/google/uuid"
-	"github.com/yangwawa0323/pcbook/pb"
+	pb_laptop "github.com/yangwawa0323/pcbook/pb/laptop/v1"
 	"github.com/yangwawa0323/pcbook/utils"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
@@ -14,7 +14,7 @@ import (
 
 type LaptopServer struct {
 	Store LaptopStore
-	pb.UnimplementedLaptopServiceServer
+	pb_laptop.UnimplementedLaptopServiceServer
 }
 
 // NewLaptopServer return a new LaptopServer
@@ -25,8 +25,8 @@ func NewLaptopServer(store LaptopStore) *LaptopServer {
 // CreateLaptop is a unary RPC to create a new laptop
 func (server *LaptopServer) CreateLaptop(
 	ctx context.Context,
-	req *pb.CreateLaptopRequest,
-) (*pb.CreateLaptopResponse, error) {
+	req *pb_laptop.CreateLaptopRequest,
+) (*pb_laptop.CreateLaptopResponse, error) {
 
 	out := utils.DebugOutput{}
 
@@ -60,7 +60,7 @@ func (server *LaptopServer) CreateLaptop(
 	}
 
 	log.Print(out.Debug("saved laptop with id %s", laptop.Id))
-	response := &pb.CreateLaptopResponse{
+	response := &pb_laptop.CreateLaptopResponse{
 		Id: laptop.Id,
 	}
 
@@ -69,14 +69,14 @@ func (server *LaptopServer) CreateLaptop(
 
 func (server *LaptopServer) FindLaptop(
 	ctx context.Context,
-	req *pb.FindLaptopRequest) (*pb.FindLaptopResponse, error) {
+	req *pb_laptop.FindLaptopRequest) (*pb_laptop.FindLaptopResponse, error) {
 	laptopId := req.Id
 	laptop, err := server.Store.Find(ctx, laptopId)
 	if err != nil {
 		code := codes.NotFound
 		return nil, status.Errorf(code, "laptop with id %s is not found: %v", req.Id, err)
 	}
-	return &pb.FindLaptopResponse{
+	return &pb_laptop.FindLaptopResponse{
 		Laptop: laptop,
 	}, nil
 }

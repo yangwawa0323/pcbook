@@ -1,0 +1,16 @@
+version: v1
+breaking:
+  use:
+    - FILE
+lint:
+  except:
+    - PACKAGE_VERSION_SUFFIX
+    - ENUM_VALUE_PREFIX
+    - PACKAGE_DIRECTORY_MATCH
+  ignore:
+    - atlas
+    - google
+    - options
+    - protoc-gen-openapiv2/options
+  use:
+    - DEFAULT

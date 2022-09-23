@@ -1,4 +1,4 @@
-gen:
+protoc_gen:
 	protoc --proto_path=proto proto/*.proto --go_out=./pb \
 	--go_opt=paths=source_relative   --go-grpc_out=./pb \
 	--go-grpc_opt=paths=source_relative
@@ -13,12 +13,16 @@ gorm:
 
 	--gorm_opt=paths=source_relative
 
+buf_gen:
+	buf generate
+
 inject:
 	protoc-go-inject-tag -input=./pb/*.pb.go
 
 clean:
 	rm ./pb/*.pb.go
 	rm ./pb/*.gorm.go
+	rm ./pb/* -rf
 
 run:
 	go run main.go

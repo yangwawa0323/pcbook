@@ -1,17 +1,17 @@
 syntax = "proto3";
 
-package techschool.pcbook;
+package techschool.pcbook.laptop.v1;
 
 option go_package = ".;pb";
 
 
 import "options/gorm.proto";
 import "google/protobuf/timestamp.proto";
-import "processor_message.proto";
-import "memory_message.proto";
-import "storage_message.proto";
-import "screen_message.proto";
-import "keyboard_message.proto";
+import "laptop/v1/processor_message.proto";
+import "laptop/v1/memory_message.proto";
+import "laptop/v1/storage_message.proto";
+import "laptop/v1/screen_message.proto";
+import "laptop/v1/keyboard_message.proto";
 
 message Laptop {
   // @gotags: gorm:"primaryKey"

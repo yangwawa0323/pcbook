@@ -4,7 +4,9 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/yangwawa0323/pcbook/pb"
+
+	pb_user "github.com/yangwawa0323/pcbook/pb/user/v1"
+
 	"github.com/yangwawa0323/pcbook/sql"
 	"github.com/yangwawa0323/pcbook/utils"
 	"gorm.io/gorm"
@@ -13,8 +15,8 @@ import (
 var out = utils.DebugOutput{}
 
 type UserStore interface {
-	Save(*pb.UserORM) error
-	Find(id string) (*pb.UserORM, error)
+	Save(*pb_user.UserORM) error
+	Find(id string) (*pb_user.UserORM, error)
 }
 
 type UserDBStore struct {
@@ -49,18 +51,18 @@ func NewUserDBStore() *UserDBStore {
 
 func (store *UserDBStore) Migrate() error {
 	return store.DB.AutoMigrate(
-		&pb.UserORM{},
-		&pb.EmailORM{},
-		&pb.AddressORM{},
+		&pb_user.UserORM{},
+		&pb_user.EmailORM{},
+		&pb_user.AddressORM{},
 	)
 }
 
-func (store *UserDBStore) Save(user *pb.UserORM) error {
+func (store *UserDBStore) Save(user *pb_user.UserORM) error {
 	return store.DB.Create(user).Error
 }
 
-func (store *UserDBStore) Find(id string) (*pb.UserORM, error) {
-	var user *pb.UserORM
+func (store *UserDBStore) Find(id string) (*pb_user.UserORM, error) {
+	var user *pb_user.UserORM
 	err := store.DB.Joins("Email").First(&user, "id = ? ", id).Error
 	return user, err
 }

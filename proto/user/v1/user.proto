@@ -2,7 +2,7 @@ syntax = "proto3";
 // Designed to mimic the behavior shown in the GORM example at
 // http://doc.gorm.io/models.html
 
-package techschool.pcbook;
+package techschool.pcbook.user.v1;
 
 import "google/protobuf/timestamp.proto";
 // import "atlas/resource/v1/resource.proto";

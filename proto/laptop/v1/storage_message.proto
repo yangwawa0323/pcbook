@@ -1,11 +1,11 @@
 syntax = "proto3";
 
-package techschool.pcbook;
+package techschool.pcbook.laptop.v1;
 
 option go_package = ".;pb";
 
 
-import "memory_message.proto";
+import "laptop/v1/memory_message.proto";
 
 import "options/gorm.proto";
 

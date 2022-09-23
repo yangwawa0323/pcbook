@@ -6,7 +6,9 @@ import (
 	"log"
 	"net"
 
-	"github.com/yangwawa0323/pcbook/pb"
+	pb_laptop "github.com/yangwawa0323/pcbook/pb/laptop/v1"
+	pb_user "github.com/yangwawa0323/pcbook/pb/user/v1"
+
 	"github.com/yangwawa0323/pcbook/service/laptop"
 	"github.com/yangwawa0323/pcbook/service/user"
 	"github.com/yangwawa0323/pcbook/utils"
@@ -30,7 +32,7 @@ func laptop_main() {
 	laptopServer := laptop.NewLaptopServer(dbLaptopStore)
 
 	grpcServer := grpc.NewServer()
-	pb.RegisterLaptopServiceServer(grpcServer, laptopServer)
+	pb_laptop.RegisterLaptopServiceServer(grpcServer, laptopServer)
 
 	reflection.Register(grpcServer)
 
@@ -59,7 +61,7 @@ func main() {
 	userServer := user.NewUserServer(dbUserStore)
 	grpcServer := grpc.NewServer()
 
-	pb.RegisterUserServiceServer(grpcServer, userServer)
+	pb_user.RegisterUserServiceServer(grpcServer, userServer)
 
 	reflection.Register(grpcServer)
 

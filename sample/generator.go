@@ -3,7 +3,8 @@ package sample
 import (
 	"github.com/golang/protobuf/ptypes"
 	"github.com/jaswdr/faker"
-	"github.com/yangwawa0323/pcbook/pb"
+	pb_laptop "github.com/yangwawa0323/pcbook/pb/laptop/v1"
+	pb_user "github.com/yangwawa0323/pcbook/pb/user/v1"
 )
 
 var fkr faker.Faker
@@ -12,8 +13,8 @@ func init() {
 	fkr = faker.New()
 }
 
-func NewKeyboard() *pb.Keyboard {
-	keyboard := &pb.Keyboard{
+func NewKeyboard() *pb_laptop.Keyboard {
+	keyboard := &pb_laptop.Keyboard{
 		Layout:  randomKeyboardLayout(),
 		Backlit: randomBool(),
 	}
@@ -21,7 +22,7 @@ func NewKeyboard() *pb.Keyboard {
 }
 
 // NewCPU returns a new sample CPU
-func NewCpu() *pb.Cpu {
+func NewCpu() *pb_laptop.Cpu {
 	brand := randomCpuBrand()
 	name := randomCpuName(brand)
 
@@ -31,7 +32,7 @@ func NewCpu() *pb.Cpu {
 	minGhz := randomFloat64(2.0, 3.5)
 	maxGhz := randomFloat64(minGhz, 5.0)
 
-	cpu := &pb.Cpu{
+	cpu := &pb_laptop.Cpu{
 		Brand:         brand,
 		Name:          name,
 		NumberCores:   uint32(numberCores),
@@ -44,19 +45,19 @@ func NewCpu() *pb.Cpu {
 }
 
 // NewGPU return a sample GPU
-func NewGpu() *pb.Gpu {
+func NewGpu() *pb_laptop.Gpu {
 	brand := randomGpuBrand()
 	name := randomGpuName(brand)
 
 	minGhz := randomFloat64(1.0, 1.5)
 	maxGhz := randomFloat64(minGhz, 2.0)
 
-	memory := &pb.Memory{
+	memory := &pb_laptop.Memory{
 		Value: uint64(randomInt(2, 6)),
-		Unit:  pb.Memory_GIGABYTE,
+		Unit:  pb_laptop.Memory_GIGABYTE,
 	}
 
-	gpu := &pb.Gpu{
+	gpu := &pb_laptop.Gpu{
 		Brand:  brand,
 		Name:   name,
 		MinGhz: minGhz,
@@ -68,42 +69,42 @@ func NewGpu() *pb.Gpu {
 }
 
 // NewRAM returns a sample RAM
-func NewRAM() *pb.Memory {
-	ram := &pb.Memory{
+func NewRAM() *pb_laptop.Memory {
+	ram := &pb_laptop.Memory{
 		Value: uint64(randomInt(2, 6)),
-		Unit:  pb.Memory_GIGABYTE,
+		Unit:  pb_laptop.Memory_GIGABYTE,
 	}
 
 	return ram
 }
 
 // NewSSD returns a sample SSD storage
-func NewSSD() *pb.Storage {
-	ssd := &pb.Storage{
-		Driver: pb.Storage_SSD,
-		Memory: &pb.Memory{
+func NewSSD() *pb_laptop.Storage {
+	ssd := &pb_laptop.Storage{
+		Driver: pb_laptop.Storage_SSD,
+		Memory: &pb_laptop.Memory{
 			Value: uint64(randomInt(128, 1024)),
-			Unit:  pb.Memory_GIGABYTE,
+			Unit:  pb_laptop.Memory_GIGABYTE,
 		},
 	}
 	return ssd
 }
 
 // NewHDD returns a sample SSD storage
-func NewHDD() *pb.Storage {
-	hdd := &pb.Storage{
-		Driver: pb.Storage_HDD,
-		Memory: &pb.Memory{
+func NewHDD() *pb_laptop.Storage {
+	hdd := &pb_laptop.Storage{
+		Driver: pb_laptop.Storage_HDD,
+		Memory: &pb_laptop.Memory{
 			Value: uint64(randomInt(1, 4)),
-			Unit:  pb.Memory_TERABYTE,
+			Unit:  pb_laptop.Memory_TERABYTE,
 		},
 	}
 	return hdd
 }
 
-func NewScreen() *pb.Screen {
+func NewScreen() *pb_laptop.Screen {
 
-	screen := &pb.Screen{
+	screen := &pb_laptop.Screen{
 		SizeInch:   randomFloat32(13, 17),
 		Resolution: randomScreenResolution(),
 		Panel:      randomScreenPanel(),
@@ -113,18 +114,18 @@ func NewScreen() *pb.Screen {
 	return screen
 }
 
-func NewLaptop() *pb.Laptop {
+func NewLaptop() *pb_laptop.Laptop {
 	brand := randomLaptopBrand()
 	name := randomLaptopName(brand)
 
-	laptop := &pb.Laptop{
+	laptop := &pb_laptop.Laptop{
 		Id:       randomID(),
 		Brand:    brand,
 		Name:     name,
 		Cpu:      NewCpu(),
 		Ram:      NewRAM(),
-		Gpus:     []*pb.Gpu{NewGpu()},
-		Storages: []*pb.Storage{NewSSD(), NewHDD()},
+		Gpus:     []*pb_laptop.Gpu{NewGpu()},
+		Storages: []*pb_laptop.Storage{NewSSD(), NewHDD()},
 		Screen:   NewScreen(),
 		Keyboard: NewKeyboard(),
 		// Weight: &pb.Laptop_WeightKg{
@@ -138,21 +139,21 @@ func NewLaptop() *pb.Laptop {
 	return laptop
 }
 
-func NewEmail() *pb.Email {
-	return &pb.Email{
+func NewEmail() *pb_user.Email {
+	return &pb_user.Email{
 		Id:    randomID(),
 		Email: fkr.Internet().Email(),
 	}
 }
 
-func NewUser() (user *pb.User) {
+func NewUser() (user *pb_user.User) {
 
 	userID := randomID()
-	user = &pb.User{
+	user = &pb_user.User{
 		Id:     userID,
 		Name:   fkr.Person().Name(),
 		Age:    uint32(randomInt(16, 35)),
-		Emails: []*pb.Email{NewEmail(), NewEmail()},
+		Emails: []*pb_user.Email{NewEmail(), NewEmail()},
 	}
 	return
 }

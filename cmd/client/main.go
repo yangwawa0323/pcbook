@@ -10,7 +10,9 @@ import (
 	"os"
 	"time"
 
-	"github.com/yangwawa0323/pcbook/pb"
+	pb_laptop "github.com/yangwawa0323/pcbook/pb/laptop/v1"
+	pb_user "github.com/yangwawa0323/pcbook/pb/user/v1"
+
 	"github.com/yangwawa0323/pcbook/sample"
 	"github.com/yangwawa0323/pcbook/utils"
 	"google.golang.org/grpc"
@@ -32,12 +34,12 @@ func laptop_main() {
 		log.Fatal(out.Panic("cannot dial server: ", err))
 	}
 
-	laptopClient := pb.NewLaptopServiceClient(conn)
+	laptopClient := pb_laptop.NewLaptopServiceClient(conn)
 
 	laptop := sample.NewLaptop()
 	laptop.Id = ""
 
-	req := &pb.CreateLaptopRequest{
+	req := &pb_laptop.CreateLaptopRequest{
 		Laptop: laptop,
 	}
 
@@ -63,7 +65,7 @@ func laptop_main() {
 
 	var laptopId string = res.Id
 
-	req2 := &pb.FindLaptopRequest{
+	req2 := &pb_laptop.FindLaptopRequest{
 		Id: laptopId,
 	}
 	res2, err := laptopClient.FindLaptop(ctx, req2)
@@ -95,13 +97,13 @@ func main() {
 	if err != nil {
 		log.Fatal(out.Panic("cannot dial server: %v", err))
 	}
-	userClient := pb.NewUserServiceClient(conn)
+	userClient := pb_user.NewUserServiceClient(conn)
 
 	if err != nil {
 		log.Fatal(out.Panic("cannot generate user uuid %v", err))
 	}
 
-	req := &pb.CreateUserRequest{
+	req := &pb_user.CreateUserRequest{
 		User: sample.NewUser(),
 	}
 
